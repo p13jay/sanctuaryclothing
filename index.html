@@ -178,10 +178,10 @@ footer{margin-top:clamp(56px,8vw,96px);padding:36px var(--gut) 24px;border-top:1
 .rm{color:var(--muted);font-size:14px;text-decoration:underline;margin-top:6px;display:block}
 .cart-foot{padding:20px;border-top:1px solid var(--line)}
 .total{display:flex;justify-content:space-between;font-weight:600;margin-bottom:14px}
-.cart-foot .btn{width:100%}
+.cart-foot .btn{width:100%}.checkout-row{display:flex;align-items:center;gap:8px}.cart-foot .checkout-row .btn{width:auto;flex:1}.checkout-lock{width:48px;height:48px;flex:none;border:1px solid var(--line);background:#111;font-size:16px}.checkout-note{display:none;margin:10px 0 0;color:var(--muted);font-size:13px}.checkout-row:hover+.checkout-note,.checkout-row:focus-within+.checkout-note,.checkout-note.show{display:block}.referral-card .dev-discount-controls{text-align:left;margin:0 0 22px;padding:18px;border:1px solid var(--line)}.dev-discount-controls[hidden]{display:none}.dev-discount-controls label{display:block;margin:0 0 10px;font-size:13px;color:var(--muted)}.dev-discount-controls input[type="range"]{display:block;width:100%;height:24px;margin:8px 0 14px;accent-color:#fff}.dev-slider-value{display:block;margin:6px 0 12px;color:var(--fg);font-size:18px;font-weight:600}.referral-card .dev-discount-controls .btn{width:100%}.dev-discount-status{min-height:20px;margin:10px 0 0;color:var(--muted);font-size:13px}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--fg);color:var(--bg);padding:12px 20px;font-weight:500;opacity:0;pointer-events:none;transition:.3s;z-index:70}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-.referral-overlay{position:fixed;z-index:100;inset:0;display:grid;place-items:center;padding:20px;background:#000b}.referral-overlay[hidden]{display:none}.referral-card{position:relative;width:min(480px,100%);padding:clamp(28px,6vw,48px);background:#0b0b0b;border:1px solid #444;text-align:center}.referral-card p{margin:0 0 24px;font-size:clamp(22px,4vw,30px);font-weight:600;letter-spacing:-.03em;line-height:1.2}.referral-card .referral-terms{margin:-8px 0 24px;color:var(--muted);font-size:14px;font-weight:400;letter-spacing:0;line-height:1.5}.referral-card button{min-width:150px}
+.referral-overlay{position:fixed;z-index:100;inset:0;display:grid;place-items:center;padding:20px;background:#000b}.referral-overlay[hidden]{display:none}.referral-card{position:relative;width:min(480px,100%);padding:clamp(28px,6vw,48px);background:#0b0b0b;border:1px solid #444;text-align:center}.referral-card p{margin:0 0 24px;font-size:clamp(22px,4vw,30px);font-weight:600;letter-spacing:-.03em;line-height:1.2}.referral-card .referral-terms{margin:-8px 0 24px;color:var(--muted);font-size:14px;font-weight:400;letter-spacing:0;line-height:1.5}.referral-card button{min-width:150px}.prompt-close{position:absolute;top:10px;right:10px;width:38px;height:38px;min-width:0!important;padding:0;border:1px solid var(--line);background:#111;color:var(--fg);font-size:22px;line-height:1}.cookie-notice{padding-top:54px}
 .cookie-notice{position:fixed;z-index:80;left:var(--gut);right:var(--gut);bottom:calc(20px + env(safe-area-inset-bottom,0px));max-width:700px;margin:auto;padding:22px;background:#111;border:1px solid #444;box-shadow:0 16px 60px #000b}
 .cookie-notice[hidden]{display:none}.cookie-row{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}.cookie-copy{max-width:48ch}.cookie-copy h2{font-size:18px;margin:0 0 8px}.cookie-copy p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}.cookie-actions{display:flex;gap:10px}.cookie-actions button{height:42px;padding:0 16px;border:1px solid var(--fg);font-weight:600}.cookie-actions .accept{background:var(--fg);color:var(--bg)}.cookie-actions .reject{background:transparent;color:var(--fg)}
 @media(max-width:520px){.cookie-actions{width:100%}.cookie-actions button{flex:1}}
@@ -281,10 +281,11 @@ footer{margin-top:clamp(56px,8vw,96px);padding:36px var(--gut) 24px;border-top:1
   <div class="cart-body" id="cartBody"></div>
   <div class="cart-foot">
     <div class="total"><span>Subtotal</span><span id="subtotal">£0</span></div>
-    <div class="total discount-total" id="referralDiscountRow" hidden><span>10% Friend Referral Discount</span><span id="discountAmount">−£0</span></div>
+    <div id="discountRows"></div>
     <div class="total"><span>Order total</span><span id="orderTotal">£0</span></div>
     <p class="shipping-qualified" id="shippingQualified" hidden>Your order qualifies for Free Shipping!</p>
-    <button class="btn" id="checkout">Checkout</button>
+    <div class="checkout-row"><button class="btn" id="checkout">Checkout</button><button class="checkout-lock" id="checkoutLock" type="button" aria-label="Checkout status" aria-expanded="false" aria-controls="checkoutNote">🔒</button></div>
+    <p class="checkout-note" id="checkoutNote" role="status">Checkout is in development and isn’t available yet.</p>
   </div>
 </aside>
 <div class="product-modal" id="productModal" aria-hidden="true"><section class="product-dialog" role="dialog" aria-modal="true" aria-labelledby="detailName">
@@ -295,10 +296,12 @@ footer{margin-top:clamp(56px,8vw,96px);padding:36px var(--gut) 24px;border-top:1
 <div class="product-actions"><button class="btn ghost" id="detailAdd">Add to cart</button><button class="btn" id="detailBuy">Buy now</button></div></div></section></div>
 <div class="toast" id="toast" role="status"></div>
 <section class="cookie-notice" id="cookieNotice" aria-label="Cookie preferences" hidden>
+  <button class="prompt-close" id="cookieClose" type="button" aria-label="Close cookie preferences">×</button>
   <div class="cookie-row"><div class="cookie-copy"><h2>Your privacy matters</h2><p>We use essential browser storage to remember your bag and save your cookie choice. Choose whether to allow optional cookies.</p></div>
     <div class="cookie-actions"><button class="reject" id="cookieReject">Reject optional</button><button class="accept" id="cookieAccept">Accept</button></div></div>
 </section>
-<div class="referral-overlay" id="referralOverlay" hidden><section class="referral-card" role="dialog" aria-modal="true" aria-labelledby="referralMessage"><p id="referralMessage">You and your friend now have 10% off your whole order.</p><p class="referral-terms">This offer can only be claimed once, so please use it on an order you’re ready to place.</p><button class="btn" id="referralClose">Sounds good</button></section></div>
+<div class="referral-overlay" id="referralOverlay" hidden><section class="referral-card" role="dialog" aria-modal="true" aria-labelledby="referralMessage"><button class="prompt-close" id="referralDismiss" type="button" aria-label="Close referral message">×</button><p id="referralMessage">You and your friend now have 10% off your whole order.</p><p class="referral-terms" id="referralTerms">This offer can only be claimed once, so please use it on an order you’re ready to place.</p><div class="dev-discount-controls" id="devDiscountControls" hidden><label for="devDiscountValue">Test discount</label><input id="devDiscountValue" type="range" min="10" max="100" step="10" value="10"><output class="dev-slider-value" id="devDiscountOutput" for="devDiscountValue">10% off</output><button class="btn ghost" id="testDevDiscount" type="button">Test</button><p class="dev-discount-status" id="devDiscountStatus" role="status"></p></div><button class="btn" id="referralClose">Claim 10% discount</button></section></div>
+<div class="referral-overlay" id="christmasOverlay" hidden><section class="referral-card" role="dialog" aria-modal="true" aria-labelledby="christmasMessage"><button class="prompt-close" id="christmasDismiss" type="button" aria-label="Close Christmas offer">×</button><p id="christmasMessage">Merry Christmas! A 20% discount has been applied to your order.</p><button class="btn" id="christmasContinue" type="button">Continue shopping</button></section></div>
 
 <script>
 const PRODUCTS=[
@@ -358,12 +361,15 @@ function render(){
   const body=$('#cartBody');
   const count=cart.reduce((a,i)=>a+i.qty,0);
   $('#count').textContent=count;$('#count').hidden=!count;
-  const hasDiscount=cart.some(i=>i.id==='friend-discount');
-  const sum=cart.reduce((total,i)=>{const p=PRODUCTS.find(x=>x.id===i.id);return total+(p?p.price*i.qty:0)},0);
-  const discount=hasDiscount?sum*.10:0;
+  const isDiscount=i=>['friend-discount','dev-friend-discount','dev-test-discount','christmas-discount'].includes(i.id);
+  const discountInfo=i=>i.id==='friend-discount'?{label:'10% Friend Referral Discount',percent:10}:i.id==='dev-friend-discount'?{label:'Development Friend Discount',percent:10}:i.id==='christmas-discount'?{label:'Christmas Discount',percent:20}:{label:'Development Test Discount',percent:Math.max(0,Math.min(100,Number(i.percent)||0))};
+  const merchandiseTotal=cart.reduce((total,i)=>{const p=PRODUCTS.find(x=>x.id===i.id);return total+(p?p.price*i.qty:0)},0);
+  let remainingSubtotal=merchandiseTotal;
+  const discounts=cart.filter(isDiscount).map(i=>{const info=discountInfo(i);const amount=remainingSubtotal*info.percent/100;remainingSubtotal-=amount;return {...info,id:i.id,amount}});
+  const discountTotal=discounts.reduce((total,d)=>total+d.amount,0);
   if(!cart.length){body.innerHTML='<p class="empty">Your bag is empty. Add an item from the shop.</p>'}
   else body.innerHTML=cart.map((i,idx)=>{
-    if(i.id==='friend-discount')return `<div class="line"><div class="discount-icon" aria-hidden="true">−10%</div><div><h5>10% Friend Referral Discount</h5><small>Applied to your order · One-time offer</small></div><span class="price">−${fmt(discount)}</span></div>`;
+    if(isDiscount(i)){const d=discountInfo(i),amount=discounts.find(x=>x.id===i.id)?.amount||0;const remove=['dev-friend-discount','dev-test-discount'].includes(i.id)?'<button class="rm" data-a="rm" data-i="'+idx+'">Remove</button>':'';return '<div class="line"><div class="discount-icon" aria-hidden="true">−'+d.percent+'%</div><div><h5>'+d.label+'</h5><small>Applied to your order</small>'+remove+'</div><span class="price">−'+fmt(amount)+'</span></div>'}
     const p=PRODUCTS.find(x=>x.id===i.id);
     return `<div class="line"><img src="${p.img}" alt="">
       <div><h5>${p.name}</h5><small>Size ${i.size} · ${i.color||'Black'}</small>
@@ -371,9 +377,11 @@ function render(){
         <button class="rm" data-a="rm" data-i="${idx}">Remove</button></div>
       <span class="price">${fmt(p.price*i.qty)}</span></div>`;
   }).join('');
-  $('#subtotal').textContent=fmt(sum);$('#discountAmount').textContent='−'+fmt(discount);$('#orderTotal').textContent=fmt(sum-discount);
-  $('#referralDiscountRow').hidden=!hasDiscount;$('#shippingQualified').hidden=!(sum-discount>100);
-  $('#checkout').disabled=!cart.some(i=>i.id!=='friend-discount');
+  $('#subtotal').textContent=fmt(merchandiseTotal);
+  $('#discountRows').innerHTML=discounts.map(d=>'<div class="total discount-total"><span>'+d.label+' ('+d.percent+'% off)</span><span>−'+fmt(d.amount)+'</span></div>').join('');
+  const orderTotal=Math.max(0,remainingSubtotal);
+  $('#orderTotal').textContent=fmt(orderTotal);$('#shippingQualified').hidden=!(orderTotal>100);
+  $('#checkout').disabled=!cart.some(i=>!isDiscount(i));
 }
 $('#cartBody').addEventListener('click',e=>{
   const b=e.target.closest('button'); if(!b)return;
@@ -448,10 +456,22 @@ if(!cookieChoice)cookieNotice.hidden=false;
 function chooseCookies(choice){writeCookie('sanctuary-cookie-choice',choice);try{localStorage.setItem('sanctuary-cookie-choice',choice)}catch(e){}cookieNotice.hidden=true}
 $('#cookieAccept').onclick=()=>chooseCookies('accepted');
 $('#cookieReject').onclick=()=>chooseCookies('rejected');
-if(location.hash==='#friend-referral'&&!friendReferralAccepted){$('#referralOverlay').hidden=false;$('#referralClose').focus()}
-$('#referralClose').onclick=()=>{friendReferralAccepted=true;writeCookie('sanctuary-friend-referral','accepted');try{localStorage.setItem('sanctuary-friend-referral','accepted')}catch(e){}if(!cart.some(i=>i.id==='friend-discount')){cart.push({id:'friend-discount',qty:1});save();render()}$('#referralOverlay').hidden=true};
+const devReferralMode=location.hash==='#dev';
+if(devReferralMode){$('#referralOverlay').hidden=false;$('#referralMessage').textContent='Development friend referral preview';$('#referralTerms').hidden=true;$('#devDiscountControls').hidden=false;$('#referralClose').textContent='Add development friend discount';$('#referralClose').focus()}
+else if(location.hash==='#friend-referral'&&!friendReferralAccepted){$('#referralOverlay').hidden=false;$('#referralClose').textContent='Claim 10% discount';$('#referralClose').focus()}
+function addDevDiscount(id,percent){const item={id,qty:1,percent};const existing=cart.findIndex(i=>i.id===id);if(existing>=0)cart[existing]=item;else cart.push(item);save();render()}
+$('#devDiscountValue').addEventListener('input',()=>{$('#devDiscountOutput').value=$('#devDiscountValue').value+'% off';$('#devDiscountOutput').textContent=$('#devDiscountValue').value+'% off'});
+$('#testDevDiscount').onclick=()=>{const value=Number($('#devDiscountValue').value);addDevDiscount('dev-test-discount',value);$('#devDiscountStatus').textContent='Development test discount added at '+value+'%.'};
+$('#referralClose').onclick=()=>{if(devReferralMode)addDevDiscount('dev-friend-discount',10);else{friendReferralAccepted=true;writeCookie('sanctuary-friend-referral','accepted');try{localStorage.setItem('sanctuary-friend-referral','accepted')}catch(e){}if(!cart.some(i=>i.id==='friend-discount')){cart.push({id:'friend-discount',qty:1});save();render()}}$('#referralOverlay').hidden=true};
 $('#referralOverlay').addEventListener('click',e=>{if(e.target.id==='referralOverlay')$('#referralOverlay').hidden=true});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#referralOverlay').hidden)$('#referralOverlay').hidden=true});
+$('#referralDismiss').onclick=()=>$('#referralOverlay').hidden=true;
+$('#cookieClose').onclick=()=>$('#cookieNotice').hidden=true;
+if(location.hash==='#christmas'){if(!cart.some(i=>i.id==='christmas-discount')){cart.push({id:'christmas-discount',qty:1});save();render()}$('#christmasOverlay').hidden=false;$('#christmasDismiss').focus()}
+$('#christmasDismiss').onclick=$('#christmasContinue').onclick=()=>$('#christmasOverlay').hidden=true;
+$('#christmasOverlay').addEventListener('click',e=>{if(e.target.id==='christmasOverlay')$('#christmasOverlay').hidden=true});
+$('#checkoutLock').onclick=()=>{const open=$('#checkoutLock').getAttribute('aria-expanded')!=='true';$('#checkoutLock').setAttribute('aria-expanded',open);$('#checkoutNote').classList.toggle('show',open)};
+document.addEventListener('click',e=>{if(!e.target.closest('#checkoutLock')){$('#checkoutLock').setAttribute('aria-expanded','false');$('#checkoutNote').classList.remove('show')}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('#referralOverlay').hidden)$('#referralOverlay').hidden=true;if(!$('#christmasOverlay').hidden)$('#christmasOverlay').hidden=true}});
 </script>
 </body>
 </html>
