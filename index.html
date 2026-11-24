@@ -87,7 +87,6 @@ section{padding:clamp(48px,7vw,88px) var(--gut) 0}
 .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:24px}
 h2{margin:0;font-size:clamp(28px,3.4vw,40px);font-weight:700;letter-spacing:-.035em;line-height:1.05}
 .sec-head span{color:var(--muted);font-weight:500}
-.filters{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
 .chip{height:36px;padding:0 16px;border:1px solid var(--line);font-weight:500;transition:background .2s,color .2s,border-color .2s}
 .chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .grid{display:grid;grid-template-columns:1fr;gap:clamp(28px,6vw,40px) 20px}
@@ -108,13 +107,16 @@ h2{margin:0;font-size:clamp(28px,3.4vw,40px);font-weight:700;letter-spacing:-.03
 .meta p{margin:2px 0 0;color:var(--muted)}
 .price{font-weight:600}
 
-/* statement */
+/* About Sanctuary */
 .statement{padding-top:clamp(56px,9vw,112px)}
-.statement p{margin:0;max-width:22ch;font-size:clamp(34px,6.4vw,72px);font-weight:700;letter-spacing:-.045em;line-height:.98}
-.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,3vw,40px);margin-top:clamp(40px,6vw,80px);border-top:1px solid var(--line);padding-top:24px}
-.facts h4{margin:0 0 6px;font-size:15px;font-weight:600}
-.facts p{margin:0;font-size:15px;font-weight:400;letter-spacing:0;line-height:1.5;color:var(--muted);max-width:34ch}
-@media (max-width:700px){.facts{grid-template-columns:1fr}}
+.statement .about-intro{margin:0;max-width:22ch;font-size:clamp(34px,6.4vw,72px);font-weight:700;letter-spacing:-.045em;line-height:.98}
+.about-copy{max-width:70ch;margin:22px 0 0;color:var(--muted);font-size:16px;line-height:1.65}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(32px,5vw,60px)}
+.fact-card{min-height:190px;padding:24px;border:1px solid var(--line);background:linear-gradient(145deg,#111,#070707)}
+.fact-card .fact-no{display:block;margin-bottom:32px;color:var(--muted);font-size:12px;letter-spacing:.12em}
+.facts h3{margin:0 0 10px;font-size:18px;font-weight:600;letter-spacing:-.02em}
+.facts p{margin:0;font-size:15px;font-weight:400;letter-spacing:0;line-height:1.55;color:var(--muted);max-width:34ch}
+@media (max-width:700px){.facts{grid-template-columns:1fr}.fact-card{min-height:0}.fact-card .fact-no{margin-bottom:22px}}
 
 /* newsletter + footer */
 .news{display:grid;grid-template-columns:1fr 1fr;gap:var(--pad);align-items:end}
@@ -124,10 +126,17 @@ form input{flex:1;min-width:0;height:52px;background:none;border:0;color:inherit
 form input::placeholder{color:var(--muted)}
 form button{font-weight:600;padding:0 4px}
 .note{min-height:22px;margin:10px 0 0;color:var(--muted)}
-footer{margin-top:clamp(56px,8vw,96px);padding:0 var(--gut) 24px;border-top:1px solid var(--line)}
-.foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:28px 0 8px;color:var(--muted)}
+footer{margin-top:clamp(56px,8vw,96px);padding:36px var(--gut) 24px;border-top:1px solid var(--line)}
+.foot-main{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:clamp(24px,5vw,72px);padding-bottom:42px}
+.foot-brand{max-width:32ch}.foot-brand .logo{display:block;width:150px;height:38px;margin-bottom:18px}
+.foot-brand p,.foot-col p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.foot-col h3{margin:0 0 14px;font-size:13px;text-transform:uppercase;letter-spacing:.12em}
+.foot-col nav{display:grid;gap:10px;justify-items:start}
+.foot-col a{color:var(--muted)}.foot-col a:hover{color:var(--fg)}
+.foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
 .foot-row nav{display:flex;gap:24px;flex-wrap:wrap}
 .foot-row a:hover{color:var(--fg)}
+@media(max-width:700px){.foot-main{grid-template-columns:1fr 1fr}.foot-brand{grid-column:1/-1}}
 
 /* cart */
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.4);opacity:0;visibility:hidden;transition:.3s;z-index:50}
@@ -166,9 +175,7 @@ footer{margin-top:clamp(56px,8vw,96px);padding:0 var(--gut) 24px;border-top:1px 
 
 <div class="sheet" id="sheet" aria-hidden="true">
   <nav class="sheet-nav" aria-label="Menu">
-    <a href="#shop" data-f="all">Shop all</a>
-    <a href="#shop" data-f="hoodies">Hoodies</a>
-    <a href="#shop" data-f="tees">T-shirts</a>
+    <a href="#shop">Shop the collection</a>
     <a href="#about">About</a>
     <a href="#news">Newsletter</a>
   </nav>
@@ -182,7 +189,7 @@ footer{margin-top:clamp(56px,8vw,96px);padding:0 var(--gut) 24px;border-top:1px 
       <div class="hero-row">
       <p>Heavyweight everyday basics, cut oversized and made to be worn on repeat.</p>
       <div class="hero-cta">
-        <a class="btn" href="#shop">Shop the essentials</a>
+        <a class="btn" href="#shop">Shop the collection</a>
         <a class="btn ghost" href="#about">About Sanctuary</a>
       </div>
       </div>
@@ -190,21 +197,17 @@ footer{margin-top:clamp(56px,8vw,96px);padding:0 var(--gut) 24px;border-top:1px 
   </div>
 
   <section id="shop">
-    <div class="sec-head"><h2>Essentials</h2><span id="shown" aria-live="polite">2 items</span></div>
-    <div class="filters" role="group" aria-label="Filter products">
-      <button class="chip" data-f="all" aria-pressed="true">All</button>
-      <button class="chip" data-f="hoodies" aria-pressed="false">Hoodies</button>
-      <button class="chip" data-f="tees" aria-pressed="false">T-shirts</button>
-    </div>
+    <div class="sec-head"><h2>Shop</h2><span id="shown" aria-live="polite">2 items</span></div>
     <div class="grid" id="grid"></div>
   </section>
 
   <section class="statement" id="about">
-    <p>Quiet clothes for loud days.</p>
+    <p class="about-intro">Quiet clothes for loud days.</p>
+    <p class="about-copy">Sanctuary is an independent clothing label built around considered everyday pieces. We believe the best clothes earn a place in your routine: comfortable from the first wear, dependable over time, and simple enough to make your own.</p>
     <div class="facts">
-      <div><h4>Heavyweight fabric</h4><p>Dense fleece and brushed cotton that hold their shape wash after wash.</p></div>
-      <div><h4>Oversized, boxy fit</h4><p>Dropped shoulders and a roomy body. Size down for a closer fit.</p></div>
-      <div><h4>One logo, nothing else</h4><p>A single wordmark on the chest. No slogans, no graphics.</p></div>
+      <article class="fact-card"><span class="fact-no">01 / OUR APPROACH</span><h3>Made for repeat wear</h3><p>We focus on familiar staples with thoughtful proportions and durable-feeling fabrics, designed to move easily through everyday life.</p></article>
+      <article class="fact-card"><span class="fact-no">02 / THE DETAILS</span><h3>Considered by design</h3><p>Relaxed silhouettes, heavyweight cotton and a restrained wordmark keep the attention on fit, feel and the way a piece wears in.</p></article>
+      <article class="fact-card"><span class="fact-no">03 / OUR PROMISE</span><h3>Less noise, more use</h3><p>We make a focused collection of versatile pieces and aim to give you clear, helpful service from choosing your size to caring for your clothes.</p></article>
     </div>
   </section>
 
@@ -221,11 +224,26 @@ footer{margin-top:clamp(56px,8vw,96px);padding:0 var(--gut) 24px;border-top:1px 
 </main>
 
 <footer>
+  <div class="foot-main">
+    <div class="foot-brand">
+      <span class="logo" role="img" aria-label="Sanctuary"></span>
+      <p>Everyday clothing, thoughtfully considered. Built for comfort, made to be worn on repeat.</p>
+    </div>
+    <div class="foot-col">
+      <h3>Explore</h3>
+      <nav aria-label="Explore">
+        <a href="#shop">Shop the collection</a><a href="#about">About Sanctuary</a><a href="#news">Newsletter</a>
+      </nav>
+    </div>
+    <div class="foot-col">
+      <h3>We’re here to help</h3>
+      <p>Questions about an item or your order? Get in touch and our team will be happy to help.</p>
+      <p style="margin-top:12px"><a href="mailto:queries@sanctuaryclothing.com">queries@sanctuaryclothing.com</a></p>
+    </div>
+  </div>
   <div class="foot-row">
-    <span>© 2026 Sanctuary</span>
-    <nav aria-label="Footer">
-      <a href="#shop">Shop</a><a href="#about">About</a><a href="#news">Newsletter</a><a href="#top">Back to top</a>
-    </nav>
+    <span>© 2026 Sanctuary Clothing</span>
+    <nav aria-label="Footer"><a href="#top">Back to top</a></nav>
   </div>
 </footer>
 
@@ -269,17 +287,6 @@ grid.addEventListener('click',e=>{
   const b=e.target.closest('.size'); if(!b)return;
   add(b.dataset.id,b.dataset.size);
 });
-
-/* filters */
-document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
-  document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c));
-  let n=0;
-  document.querySelectorAll('.card').forEach(card=>{
-    const show=c.dataset.f==='all'||card.dataset.cat===c.dataset.f;
-    card.hidden=!show; if(show)n++;
-  });
-  $('#shown').textContent=n+(n===1?' item':' items');
-}));
 
 /* cart */
 function add(id,size){
