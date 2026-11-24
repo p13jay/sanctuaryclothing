@@ -77,7 +77,7 @@ header .logo{width:clamp(92px,10vw,108px)}
 .sheet-foot button{color:var(--fg);font-weight:500;text-decoration:underline;text-underline-offset:4px}
 
 /* shipping announcement */
-.shipping-banner{padding:10px var(--gut);background:#f1f1ef;color:#000;text-align:center;font-size:11px;font-weight:700;letter-spacing:.16em}
+.shipping-banner{overflow:hidden;padding:10px 0;background:#f1f1ef;color:#000;font-size:11px;font-weight:700;letter-spacing:.16em}.shipping-banner-track{display:flex;width:max-content;animation:shipping-scroll 22s linear infinite}.shipping-banner:hover .shipping-banner-track,.shipping-banner:focus .shipping-banner-track{animation-play-state:paused}.shipping-banner-copy{flex:none;padding-right:clamp(48px,10vw,140px);white-space:nowrap}@keyframes shipping-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 /* hero */
 .hero{padding:clamp(32px,5vw,64px) var(--gut) 0}
 .hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-top:clamp(28px,4vw,48px)}
@@ -121,6 +121,7 @@ h2{margin:0;font-size:clamp(28px,3.4vw,40px);font-weight:700;letter-spacing:-.03
 .price{font-weight:600}
 .product-image{cursor:pointer}.product-image:focus-visible{outline:2px solid #000;outline-offset:-5px}
 .product-modal{position:fixed;z-index:90;inset:0;display:grid;place-items:center;padding:20px;background:#000b;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}.product-modal.open{opacity:1;visibility:visible}
+.demo-checkout-overlay{position:fixed;z-index:120;inset:0;display:grid;place-items:center;padding:clamp(10px,3vw,28px);background:rgba(0,0,0,.78);overscroll-behavior:contain}.demo-checkout-overlay[hidden]{display:none}.demo-checkout-dialog{position:relative;width:min(680px,100%);max-height:94dvh;overflow:auto;padding:clamp(22px,4vw,38px);background:#0b0b0b;color:var(--fg);border:1px solid #444;box-shadow:0 24px 80px #0009}.demo-checkout-head{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 0 12px}.demo-checkout-head h2{font-size:clamp(25px,5vw,34px)}.demo-checkout-head button{width:40px;height:40px;border:1px solid var(--line);background:#111;color:var(--fg);font-size:25px}.demo-card-fields{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 20px;padding:16px;border:1px solid var(--line)}.demo-card-fields h3{grid-column:1/-1;margin:0;font-size:15px}.demo-card-fields h3 span{font-size:12px;font-weight:400;color:#c9b98d}.demo-card-fields label{display:flex;flex-direction:column;gap:7px;font-size:13px}.demo-card-fields input{width:100%;min-height:44px;padding:10px 12px;border:1px solid #555;background:#111;color:var(--fg);font:inherit}.demo-card-fields .wide{grid-column:1/-1}.demo-card-warning,.demo-card-hint{grid-column:1/-1;margin:0;font-size:12px;line-height:1.5;color:#e6d8ab}.demo-card-warning{padding:10px 12px;border:1px solid #665b37;background:#18160f}.demo-card-hint{color:#aaa}.demo-checkout-alert{margin:0 0 22px;padding:12px 14px;border:1px solid #665b37;background:#18160f;color:#e6d8ab;font-size:13px;line-height:1.5}.demo-order-summary{margin:0 0 22px;padding:16px;border:1px solid var(--line)}.demo-order-summary h3{margin:0 0 12px;font-size:15px}.demo-order-summary ul{margin:0 0 12px;padding:0;list-style:none}.demo-order-summary li,.demo-order-total{display:flex;justify-content:space-between;gap:14px;padding:7px 0;font-size:13px}.demo-order-total{border-top:1px solid var(--line);font-weight:700}.demo-shipping-note{margin:10px 0 0;color:var(--muted);font-size:13px}.demo-shipping-note[hidden]{display:none}.demo-checkout-form{display:grid;grid-template-columns:1fr 1fr;gap:13px}.demo-checkout-form label{display:grid;gap:7px;color:var(--muted);font-size:12px}.demo-checkout-form label.wide{grid-column:1/-1}.demo-checkout-form input{width:100%;height:44px;padding:0 12px;border:1px solid #444;background:#111;color:var(--fg);font:inherit}.demo-checkout-form button{grid-column:1/-1;width:100%;margin-top:5px}.demo-checkout-success[hidden]{display:none}.demo-checkout-success{text-align:center;padding:16px 0}.demo-checkout-success h3{margin:0 0 12px;font-size:25px}.demo-checkout-success p{color:var(--muted);line-height:1.6}.demo-checkout-success .btn{margin-top:10px}@media(max-width:520px){.demo-checkout-form{grid-template-columns:1fr}.demo-checkout-form label.wide,.demo-checkout-form button{grid-column:auto}}
 .product-dialog{position:relative;width:min(900px,100%);max-height:min(88vh,760px);overflow:auto;padding:0;background:#0b0b0b;border:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr}
 .product-dialog>img{width:100%;height:100%;min-height:430px;object-fit:cover;background:var(--tile);mix-blend-mode:normal}.product-details{padding:clamp(24px,4vw,48px);display:flex;flex-direction:column;justify-content:center}
 .product-close{position:absolute;top:12px;right:12px;width:42px;height:42px;background:#000;border:1px solid var(--line);z-index:1}.product-details .eyebrow{margin:0 0 14px;color:var(--muted);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
@@ -186,13 +187,54 @@ footer{margin-top:clamp(56px,8vw,96px);padding:36px var(--gut) 24px;border-top:1
 .cookie-notice{position:fixed;z-index:80;left:var(--gut);right:var(--gut);bottom:calc(20px + env(safe-area-inset-bottom,0px));max-width:700px;margin:auto;padding:22px;background:#111;border:1px solid #444;box-shadow:0 16px 60px #000b}
 .cookie-notice[hidden]{display:none}.cookie-row{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}.cookie-copy{max-width:48ch}.cookie-copy h2{font-size:18px;margin:0 0 8px}.cookie-copy p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}.cookie-actions{display:flex;gap:10px}.cookie-actions button{height:42px;padding:0 16px;border:1px solid var(--fg);font-weight:600}.cookie-actions .accept{background:var(--fg);color:var(--bg)}.cookie-actions .reject{background:transparent;color:var(--fg)}
 @media(max-width:520px){.cookie-actions{width:100%}.cookie-actions button{flex:1}}
-@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;scroll-behavior:auto!important}}
-</style>
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;scroll-behavior:auto!important}.shipping-banner-track{width:100%;justify-content:center;animation:none}.shipping-banner-copy+.shipping-banner-copy{display:none}}
+/* Christmas atmosphere */
+.christmas-lights{position:relative;z-index:9;height:30px;overflow:hidden;background:linear-gradient(180deg,#09110b,#101510)}
+.christmas-wire{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.christmas-wire path{fill:none;stroke:#425446;stroke-width:2;vector-effect:non-scaling-stroke}
+.christmas-bulbs{position:absolute;inset:0}
+.christmas-bulb{position:absolute;width:11px;height:14px;border-radius:48% 48% 55% 55%;background:var(--bulb-color);opacity:.88;transform-origin:50% 0;box-shadow:0 0 3px 1px color-mix(in srgb,var(--bulb-color),transparent 25%),0 0 9px 3px color-mix(in srgb,var(--bulb-color),transparent 55%),0 0 20px 5px color-mix(in srgb,var(--bulb-color),transparent 78%);filter:drop-shadow(0 2px 2px #0009);animation:bulb-twinkle var(--twinkle-time) ease-in-out var(--twinkle-delay) infinite alternate}
+.christmas-bulb:before{content:"";position:absolute;left:3px;top:-4px;width:5px;height:5px;border-radius:2px 2px 0 0;background:#627064}
+.christmas-effects[data-christmas-mode="steady"] .christmas-bulb{animation:none;opacity:1}
+.christmas-effects[data-christmas-mode="flash"] .christmas-bulb{animation:bulb-flash 1.15s steps(1,end) var(--flash-delay) infinite}
+.christmas-effects[data-christmas-mode="fade"] .christmas-bulb{animation:bulb-fade 2.8s ease-in-out var(--twinkle-delay) infinite alternate}
+.christmas-effects[data-christmas-mode="chase"] .christmas-bulb{animation:bulb-chase 1.8s ease-in-out var(--chase-delay) infinite}
+@keyframes bulb-twinkle{0%{opacity:.5;filter:brightness(.72) drop-shadow(0 1px 1px #0009)}100%{opacity:1;filter:brightness(1.22) drop-shadow(0 0 7px var(--bulb-color))}}
+@keyframes bulb-flash{0%,44%,100%{opacity:1;filter:brightness(1.2) drop-shadow(0 0 8px var(--bulb-color))}45%,70%{opacity:.22;filter:brightness(.6)}}
+@keyframes bulb-fade{0%{opacity:.35;filter:brightness(.72)}100%{opacity:1;filter:brightness(1.25) drop-shadow(0 0 8px var(--bulb-color))}}
+@keyframes bulb-chase{0%,100%{opacity:.3;filter:brightness(.65)}45%{opacity:1;filter:brightness(1.35) drop-shadow(0 0 9px var(--bulb-color))}}
+.christmas-snow{position:fixed;z-index:8;inset:0;width:100%;height:100%;pointer-events:none;opacity:.62}
+.christmas-effects .eyebrow{color:#d3b678!important}
+.christmas-effects .btn:not(.ghost){box-shadow:0 0 16px #54a86a22}
+.christmas-controls{position:fixed;z-index:42;left:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));font-family:inherit}
+.christmas-settings-button{min-height:42px;padding:10px 14px;border:1px solid #78806e;background:#111;color:#f5f1e8;font:inherit;font-size:12px;letter-spacing:.04em;box-shadow:0 5px 22px #0007;cursor:pointer}
+.christmas-settings-button:hover{border-color:#d3b678}
+.christmas-settings-panel{position:absolute;left:0;bottom:52px;width:min(290px,calc(100vw - 32px));padding:18px;background:#10120f;color:#f5f1e8;border:1px solid #4d594c;box-shadow:0 16px 45px #000c}
+.christmas-settings-panel[hidden]{display:none}
+.christmas-settings-panel h2{margin:0 0 14px;font-size:17px}
+.christmas-settings-panel label{display:block;margin:12px 0;color:#e8e4da;font-size:13px}
+.christmas-settings-panel .holiday-toggle{display:flex;align-items:center;gap:9px}
+.christmas-settings-panel input[type="checkbox"]{width:17px;height:17px;accent-color:#9b2e31}
+.christmas-settings-panel select{display:block;width:100%;margin-top:7px;padding:10px;border:1px solid #52584e;background:#191b18;color:#fff;font:inherit}
+.christmas-settings-panel p{margin:12px 0 0;color:#a9aca3;font-size:11px;line-height:1.5}
+@media(prefers-reduced-motion:reduce){.christmas-snow{display:none!important}.christmas-effects .christmas-bulb{animation:none!important;opacity:1;filter:none}}body:not(.christmas-effects) .christmas-lights,body:not(.christmas-effects) .christmas-snow,body:not(.christmas-effects) .christmas-greeting{display:none!important}
+.christmas-greeting{display:none;position:relative;overflow:hidden;margin:0 var(--gut) clamp(38px,6vw,76px);padding:clamp(24px,4vw,46px);text-align:center;border:1px solid #655238;background:radial-gradient(ellipse at 50% 0,#5c27233d,transparent 62%),linear-gradient(125deg,#10160f,#17120f 55%,#10160f);color:#f4eee0}
+.christmas-effects .christmas-greeting{display:block;box-shadow:inset 0 0 44px #b47b2910,0 10px 45px #0005}
+.christmas-greeting:before,.christmas-greeting:after{content:"✦  ❄  ✧  ❄  ✦";position:absolute;color:#d6ba78;opacity:.55;letter-spacing:.45em;font-size:13px;pointer-events:none}
+.christmas-greeting:before{top:12px;left:16px}.christmas-greeting:after{right:16px;bottom:12px}
+.christmas-greeting .holiday-kicker{margin:0 0 12px;color:#d9bd7a;font-size:10px;letter-spacing:.24em;text-transform:uppercase}
+.christmas-greeting h2{margin:0 auto 10px;max-width:24ch;font-size:clamp(24px,4.5vw,42px);font-weight:500;letter-spacing:-.035em}
+.christmas-greeting p:not(.holiday-kicker){margin:0 auto;color:#d0c8b8;font-size:14px;line-height:1.65}
+.christmas-greeting .holiday-stars{margin-top:20px;color:#cba766;letter-spacing:.9em;font-size:18px}
+.christmas-effects .sec-head{border-bottom-color:#806945}
+.christmas-effects .sec-head h2:after{content:"  ✦";color:#cba766;font-size:.58em;vertical-align:middle}
+.christmas-effects footer:before{content:"✦  ❄  ✧  ❄  ✦  ❄  ✧  ❄  ✦";display:block;padding:18px 0;color:#cba766;text-align:center;letter-spacing:.8em;opacity:.82}
+.christmas-settings-panel .holiday-help{margin:-6px 0 12px 26px;color:#aaa99d;font-size:11px}</style>
 </head>
 <body>
-<a class="skip" href="#shop">Skip to shop</a>
+<a class="skip" href="#shop">Skip to shop</a><div class="christmas-lights" aria-hidden="true"><svg class="christmas-wire" viewBox="0 0 1200 30" preserveAspectRatio="none"><path d="M0 2 C80 29 130 29 200 2 S320 29 400 2 S520 29 600 2 S720 29 800 2 S920 29 1000 2 S1120 29 1200 2"/></svg><div class="christmas-bulbs"></div></div><canvas class="christmas-snow" id="christmasSnow" aria-hidden="true"></canvas>
 
-<div class="shipping-banner">FREE SHIPPING ON ORDERS OVER £100</div>
+<div class="shipping-banner" role="region" aria-label="Free shipping on orders over £100" tabindex="0"><div class="shipping-banner-track"><span class="shipping-banner-copy" aria-hidden="true">FREE SHIPPING ON ORDERS OVER £100</span><span class="shipping-banner-copy" aria-hidden="true">FREE SHIPPING ON ORDERS OVER £100</span></div></div><script>(()=>{const banner=document.querySelector(".shipping-banner"),track=banner?.querySelector(".shipping-banner-track");if(!banner||!track)return;const phrase=track.firstElementChild.textContent.trim();let resizeTimer;function fill(){track.replaceChildren();for(let i=0;i<2;i++){const group=document.createElement("span");group.className="shipping-banner-copy";group.setAttribute("aria-hidden","true");group.textContent=phrase;track.appendChild(group);while(group.getBoundingClientRect().width<banner.clientWidth+80)group.textContent+=" · "+phrase;}track.style.animationDuration=Math.max(12,track.firstElementChild.getBoundingClientRect().width/38)+"s"}fill();window.addEventListener("resize",()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(fill,120)})})();</script>
 <header id="hdr">
   <div class="hdr-left">
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><span class="bars"><i></i><i></i></span></button>
@@ -224,7 +266,7 @@ footer{margin-top:clamp(56px,8vw,96px);padding:36px var(--gut) 24px;border-top:1
     </div>
   </div>
 
-  <section id="shop">
+  <section class="christmas-greeting" aria-label="Sanctuary holiday edit"><p class="holiday-kicker">The Sanctuary holiday edit</p><h2>A little extra warmth for the season.</h2><p>Thoughtful layers for gifting, gathering, and getting cosy.</p><div class="holiday-stars" aria-hidden="true">✦　❄　✧　❄　✦</div></section><section id="shop">
     <div class="sec-head"><h2>Shop</h2><span id="shown" aria-live="polite">6 items</span></div>
     <div class="grid" id="grid"></div>
   </section>
@@ -287,9 +329,23 @@ footer{margin-top:clamp(56px,8vw,96px);padding:36px var(--gut) 24px;border-top:1
     <p class="shipping-qualified" id="shippingQualified" hidden>Your order qualifies for Free Shipping!</p>
     <div class="discount-code-entry"><button id="openDiscountCode" type="button">Add discount code</button></div>
     <div class="checkout-row"><button class="btn" id="checkout">Checkout</button><button class="checkout-lock" id="checkoutLock" type="button" aria-label="Checkout status" aria-expanded="false" aria-controls="checkoutNote">🔒</button></div>
-    <p class="checkout-note" id="checkoutNote" role="status">Checkout is in development and isn’t available yet.</p>
+    <p class="checkout-note" id="checkoutNote" role="status">Demo checkout only. No real payments are processed.</p>
   </div>
 </aside>
+<div class="demo-checkout-overlay" id="demoCheckout" aria-hidden="true" hidden>
+  <section class="demo-checkout-dialog" role="dialog" aria-modal="true" aria-labelledby="demoCheckoutTitle">
+    <div class="demo-checkout-head"><h2 id="demoCheckoutTitle">Demo checkout</h2><button id="demoCheckoutClose" type="button" aria-label="Close checkout">×</button></div>
+    <p class="demo-checkout-alert">Demo only. No payment will be taken, and no order or customer details will be sent to Sanctuary Clothing.</p>
+    <div class="demo-order-summary"><h3>Your order</h3><ul id="demoOrderItems"></ul><div id="demoDiscounts"></div><div class="demo-order-total"><span>Order total</span><span id="demoOrderTotal">£0.00</span></div><p id="demoShippingNote" class="demo-shipping-note" hidden>Your order qualifies for Free Shipping!</p><p id="demoShippingExcluded" class="demo-shipping-note" hidden>Shipping and tax are not calculated in this demo.</p></div>
+    <form class="demo-checkout-form" id="demoCheckoutForm">
+      <label>Name<input name="name" autocomplete="name" required></label><label>Email<input name="email" type="email" autocomplete="email" required></label>
+      <label class="wide">Address<input name="address" autocomplete="street-address" required></label><label>Town or city<input name="city" autocomplete="address-level2" required></label><label>Postcode<input name="postcode" autocomplete="postal-code" required></label>
+      <div class="demo-card-fields wide"><h3>Card details <span>(demo only)</span></h3><p class="demo-card-warning">Do not enter real payment details. This form only simulates checkout; card details are not sent, processed, or saved.</p><label class="wide">Name on card<input name="cardName" autocomplete="off" required></label><label class="wide">Demo card number<input name="cardNumber" type="text" inputmode="numeric" autocomplete="off" placeholder="0000 0000 0000 0000" pattern="[0-9 ]{12,23}" minlength="12" maxlength="23" aria-describedby="demoCardHint" required></label><span class="demo-card-hint wide" id="demoCardHint">Enter any 12–19 digits for this local demonstration. No card validation or payment takes place.</span><label>Expiry (MM/YY)<input name="cardExpiry" type="text" inputmode="numeric" autocomplete="off" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])/[0-9]{2}" maxlength="5" required></label><label>Security code<input name="cardCvc" type="text" inputmode="numeric" autocomplete="off" placeholder="123" pattern="[0-9]{3,4}" minlength="3" maxlength="4" required></label></div>
+      <button class="btn" type="submit">Complete demo checkout</button>
+    </form>
+    <div class="demo-checkout-success" id="demoCheckoutSuccess" role="status" hidden><h3>Demo order complete</h3><p id="demoSuccessMessage"></p><p>No payment was taken. Your details were not sent or saved.</p><button class="btn ghost" id="demoContinue" type="button">Return to the shop</button></div>
+  </section>
+</div>
 <div class="product-modal" id="productModal" aria-hidden="true"><section class="product-dialog" role="dialog" aria-modal="true" aria-labelledby="detailName">
 <button class="product-close" id="productClose" aria-label="Close product details">×</button><img id="detailImage" src="" alt=""><div class="product-details">
 <p class="eyebrow">Sanctuary Clothing</p><h2 id="detailName"></h2><p class="detail-price" id="detailPrice"></p><p class="discount-subtext" id="detailDiscount" hidden>Discounts: 10% off</p><p class="description" id="detailDescription"></p>
@@ -396,9 +452,9 @@ $('#cartBody').addEventListener('click',e=>{
 });
 const cartEl=$('#cart'),scrim=$('#scrim');
 let lastFocus=null;
-function openCart(o){
+function openCart(o,{restoreFocus=true}={}){
   if(o)lastFocus=document.activeElement;
-  else if(cartEl.classList.contains('open')&&lastFocus)setTimeout(()=>lastFocus.focus(),0);
+  else if(restoreFocus&&cartEl.classList.contains('open')&&lastFocus)setTimeout(()=>lastFocus.focus(),0);
   document.querySelectorAll('header,main,footer').forEach(e=>e.inert=o);
   cartEl.classList.toggle('open',o); scrim.classList.toggle('open',o);
   cartEl.setAttribute('aria-hidden',!o);
@@ -407,7 +463,47 @@ function openCart(o){
 }
 $('#cartOpen').onclick=()=>openCart(true);
 $('#cartClose').onclick=scrim.onclick=()=>openCart(false);
-$('#checkout').onclick=()=>toast('Checkout isn’t connected yet');
+let demoCheckoutReturnFocus=null;
+const demoOverlay=$('#demoCheckout');
+const isDemoDiscount=item=>['friend-discount','dev-friend-discount','dev-test-discount','christmas-discount'].includes(item.id)||item.id.startsWith('friend-code-');
+function demoDiscountInfo(item){
+  if(item.id.startsWith('friend-code-'))return {label:'Friend Referral Discount'+(item.code?' · '+item.code:''),percent:10};
+  if(item.id==='friend-discount')return {label:'10% Friend Referral Discount',percent:10};
+  if(item.id==='dev-friend-discount')return {label:'Development Friend Discount',percent:10};
+  if(item.id==='christmas-discount')return {label:'Christmas Discount',percent:20};
+  return {label:'Development Test Discount',percent:Math.max(0,Math.min(100,Number(item.percent)||0))};
+}
+function renderDemoSummary(){
+  const products=cart.filter(item=>!isDemoDiscount(item));
+  const merchandise=products.reduce((sum,item)=>{const product=PRODUCTS.find(p=>p.id===item.id);return sum+(product?product.price*item.qty:0)},0);
+  let running=merchandise;const discounts=cart.filter(isDemoDiscount).map(item=>{const info=demoDiscountInfo(item),amount=running*info.percent/100;running-=amount;return {...info,amount}});
+  const list=$('#demoOrderItems');list.replaceChildren();
+  products.forEach(item=>{const product=PRODUCTS.find(p=>p.id===item.id);if(!product)return;const li=document.createElement('li');const label=document.createElement('span');label.textContent=product.name+' · '+item.size+' · '+(item.color||'Black')+' × '+item.qty;const amount=document.createElement('span');amount.textContent=fmt(product.price*item.qty);li.append(label,amount);list.append(li)});
+  const discountRows=$('#demoDiscounts');discountRows.replaceChildren();discounts.forEach(d=>{const row=document.createElement('div');row.className='demo-order-total';const label=document.createElement('span');label.textContent=d.label+' ('+d.percent+'% off)';const amount=document.createElement('span');amount.textContent='−'+fmt(d.amount);row.append(label,amount);discountRows.append(row)});
+  $('#demoOrderTotal').textContent=fmt(Math.max(0,running));
+  const qualifies=running>100;$('#demoShippingNote').hidden=!qualifies;$('#demoShippingExcluded').hidden=qualifies;
+  $('#demoShippingExcluded').textContent=qualifies?'Tax is not calculated in this demo.':'Shipping and tax are not calculated in this demo.';
+}
+function closeDemoCheckout(){
+  if(demoOverlay.hidden)return;demoOverlay.hidden=true;demoOverlay.setAttribute('aria-hidden','true');
+  document.querySelectorAll('header,main,footer,#cart').forEach(el=>el.inert=false);document.body.style.overflow='';
+  $('#demoCheckoutForm').reset();$('#demoCheckoutForm').hidden=false;$('#demoCheckoutSuccess').hidden=true;
+  if(demoCheckoutReturnFocus?.isConnected){openCart(true);lastFocus=$('#cartOpen');demoCheckoutReturnFocus.focus()}demoCheckoutReturnFocus=null;
+}
+function openDemoCheckout(){
+  renderDemoSummary();demoCheckoutReturnFocus=$('#checkout');demoOverlay.hidden=false;demoOverlay.setAttribute('aria-hidden','false');
+  document.querySelectorAll('header,main,footer,#cart').forEach(el=>el.inert=true);document.body.style.overflow='hidden';$('#demoCheckoutClose').focus();
+}
+$('#demoCheckoutClose').onclick=closeDemoCheckout;$('#demoContinue').onclick=closeDemoCheckout;
+demoOverlay.addEventListener('click',e=>{if(e.target===demoOverlay)closeDemoCheckout()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!demoOverlay.hidden){e.preventDefault();e.stopImmediatePropagation();closeDemoCheckout()}},true);
+$('#demoCheckoutForm').addEventListener('submit',e=>{
+  e.preventDefault();if(!e.currentTarget.reportValidity())return;e.currentTarget.reset(); const orderNumber='DEMO-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
+  $('#demoSuccessMessage').textContent='Demo reference: '+orderNumber+'. This is a local preview only; Sanctuary Clothing has not received an order.';
+  e.currentTarget.hidden=true;$('#demoCheckoutSuccess').hidden=false;
+  cart=[];save();render();$('#demoContinue').focus();
+});
+$('#checkout').onclick=()=>{if(cart.some(i=>PRODUCTS.some(p=>p.id===i.id)))openDemoCheckout()};
 
 /* menu */
 const sheet=$('#sheet'),burger=$('#burger');
@@ -492,5 +588,5 @@ $('#checkoutLock').onclick=()=>{const open=$('#checkoutLock').getAttribute('aria
 document.addEventListener('click',e=>{if(!e.target.closest('#checkoutLock')){$('#checkoutLock').setAttribute('aria-expanded','false');$('#checkoutNote').classList.remove('show')}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('#referralOverlay').hidden)$('#referralOverlay').hidden=true;if(!$('#christmasOverlay').hidden)$('#christmasOverlay').hidden=true;$('#referralCodeModal').hidden=true;$('#discountCodeModal').hidden=true}});
 </script>
-</body>
+<div class="christmas-controls"><button class="christmas-settings-button" id="christmasSettingsButton" type="button" aria-expanded="false" aria-controls="christmasSettingsPanel">✦ Christmas settings</button><section class="christmas-settings-panel" id="christmasSettingsPanel" aria-labelledby="christmasSettingsTitle" hidden><h2 id="christmasSettingsTitle">Christmas effects</h2><label class="holiday-toggle"><input id="christmasEffectsToggle" type="checkbox" checked> Christmas Mode</label><label class="holiday-toggle"><input id="christmasAnimationsToggle" type="checkbox" checked> Animated lights</label><p class="holiday-help">Switch off for a steady glow.</p><label for="christmasLightMode">Light pattern<select id="christmasLightMode"><option value="twinkle">Natural twinkle</option><option value="steady">Steady glow</option><option value="flash">Classic flashing</option><option value="fade">Slow fade</option><option value="chase">Chasing lights</option></select></label><p>Your preferences are saved on this device. Turn effects off to restore the standard site appearance.</p></section></div><script>(()=>{const body=document.body,lightRoot=document.querySelector(".christmas-bulbs"),snow=document.getElementById("christmasSnow"),toggle=document.getElementById("christmasEffectsToggle"),mode=document.getElementById("christmasLightMode"),animationsToggle=document.getElementById("christmasAnimationsToggle"),button=document.getElementById("christmasSettingsButton"),panel=document.getElementById("christmasSettingsPanel"),colors=["#ff4949","#49d887","#ffd36a","#76c8ff","#ed70bc","#fff0cc"];if(!lightRoot||!snow||!toggle||!mode||!animationsToggle||!button||!panel)return;for(let i=0;i<20;i++){const bulb=document.createElement("span"),color=colors[i%colors.length];bulb.className="christmas-bulb";bulb.style.left=((i+.5)/20*100)+"%";bulb.style.top=(9+Math.sin(i*.72)*5)+"px";bulb.style.setProperty("--bulb-color",color);bulb.style.setProperty("--twinkle-time",(2.4+Math.random()*2.8)+"s");bulb.style.setProperty("--twinkle-delay",(-Math.random()*4)+"s");bulb.style.setProperty("--flash-delay",(-i*.11)+"s");bulb.style.setProperty("--chase-delay",(-i*.09)+"s");lightRoot.appendChild(bulb)}let prefs={enabled:true,mode:"twinkle",animations:true};try{const saved=JSON.parse(localStorage.getItem("sanctuary-christmas-effects")||"null");if(saved&&typeof saved==="object"){prefs.enabled=saved.enabled!==false;if(["twinkle","steady","flash","fade","chase"].includes(saved.mode))prefs.mode=saved.mode;prefs.animations=saved.animations!==false}}catch{}const ctx=snow.getContext("2d");let flakes=[],frame=0,w=0,h=0;function sizeSnow(){const dpr=Math.min(window.devicePixelRatio||1,2);w=window.innerWidth;h=window.innerHeight;snow.width=w*dpr;snow.height=h*dpr;ctx?.setTransform(dpr,0,0,dpr,0,0);flakes=Array.from({length:Math.min(85,Math.max(35,Math.round(w/15)))},()=>({x:Math.random()*w,y:Math.random()*h,r:1+Math.random()*2.4,s:.35+Math.random()*.9,drift:-.35+Math.random()*.7,a:.25+Math.random()*.55}))}function drawSnow(){if(!prefs.enabled||!ctx||matchMedia("(prefers-reduced-motion: reduce)").matches){frame=0;return}ctx.clearRect(0,0,w,h);for(const f of flakes){f.y+=f.s;f.x+=f.drift+Math.sin(f.y*.008)*.18;if(f.y>h+4){f.y=-4;f.x=Math.random()*w}if(f.x<-5)f.x=w+5;if(f.x>w+5)f.x=-5;ctx.beginPath();ctx.fillStyle="rgba(255,255,255,"+f.a+")";ctx.arc(f.x,f.y,f.r,0,Math.PI*2);ctx.fill()}frame=requestAnimationFrame(drawSnow)}function savePrefs(){try{localStorage.setItem("sanctuary-christmas-effects",JSON.stringify(prefs))}catch{}}function apply(){body.classList.toggle("christmas-effects",prefs.enabled);body.dataset.christmasMode=prefs.animations?prefs.mode:"steady";toggle.checked=prefs.enabled;animationsToggle.checked=prefs.animations;mode.value=prefs.mode;mode.disabled=!prefs.enabled||!prefs.animations;button.setAttribute("aria-pressed",String(prefs.enabled));if(prefs.enabled&&!frame){sizeSnow();frame=requestAnimationFrame(drawSnow)}else if(!prefs.enabled){if(frame)cancelAnimationFrame(frame);frame=0;ctx?.clearRect(0,0,w,h)}savePrefs()}toggle.addEventListener("change",()=>{prefs.enabled=toggle.checked;apply()});animationsToggle.addEventListener("change",()=>{prefs.animations=animationsToggle.checked;apply()});mode.addEventListener("change",()=>{prefs.mode=mode.value;apply()});button.addEventListener("click",()=>{panel.hidden=!panel.hidden;button.setAttribute("aria-expanded",String(!panel.hidden));if(!panel.hidden)toggle.focus()});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!panel.hidden){panel.hidden=true;button.setAttribute("aria-expanded","false");button.focus()}});document.addEventListener("pointerdown",e=>{if(!panel.hidden&&!panel.contains(e.target)&&!button.contains(e.target)){panel.hidden=true;button.setAttribute("aria-expanded","false")}});window.addEventListener("resize",()=>{if(prefs.enabled){sizeSnow();if(!frame)frame=requestAnimationFrame(drawSnow)}});sizeSnow();apply()})();</script></body>
 </html>
